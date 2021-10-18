@@ -21,6 +21,10 @@
     })
 </script>
 
+<svelte:head>
+    <title>SimpleMDT - MDT</title>
+</svelte:head>
+
 {#if callsign}
     <div class="centered">
         <div class="section">
