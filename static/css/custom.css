@@ -6,6 +6,8 @@
     --background-secondary: #1e1e1e;
     --accent: #3386f2;
     --accent-dark: #2771d1;
+    --red: rgb(242, 46, 46, 1);
+    --red-dark: rgb(184, 28, 28);
     --text: #dcdcdc;
     --text-secondary: #838383;
     --white: #FFF;
@@ -98,12 +100,13 @@ body {
     border-radius: 6px;
     transition: 0.4s ease-in-out;
 }
-.close {
+.close-leo, .close-civ {
     color: var(--nqw);
     float: right;
     font-size: 28px;
     font-weight: bold;
     transition: 0.4s ease-in-out;
+    cursor: pointer;
 }
 .close:hover,
 .close:focus {

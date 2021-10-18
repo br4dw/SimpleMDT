@@ -31,7 +31,8 @@ export async function get(req, res) {
     const access_token = response.access_token;
     const refresh_token = response.refresh_token;
     const expiry = {
-        access_token: new Date(Date.now() + response.expires_in), // 10 minutes
+        // access_token: new Date(Date.now() + response.expires_in), // 10 minutes
+        access_token: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000), // 6 days
         refresh_token: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
     }
     const cookie_options = { httpOnly: true, secure: false, sameSite: 'strict' };

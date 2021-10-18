@@ -27,7 +27,7 @@ export async function post(req, res) {
         // receive fresh tokens or error in a response
         let response = await request.json();
 
-        if (response.error) {
+        if (response && response.error) {
             // clear cookies if something went wrong; forces user to re-auth
             console.log('Error refreshing token: ', response.error);
 
@@ -39,7 +39,8 @@ export async function post(req, res) {
 
         if (response) {
             // set the new tokens in cookies
-            const access_token_expires = new Date(Date.now() + response.expires_in); // 10 minutes
+            // const access_token_expires = new Date(Date.now() + response.expires_in); // 10 minutes
+            const access_token_expires = new Date(Date.now() + 6 * 24 * 60 * 60 * 1000) // 6 days
             const refresh_token_expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
             const cookie_options = { httpOnly: true, secure: false, sameSite: 'strict' };
 
