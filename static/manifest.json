@@ -1,0 +1,14 @@
+{
+    "background_color": "#ffffff",
+    "theme_color": "#333333",
+    "name": "Mobile Data Terminal",
+    "short_name": "MDT",
+    "display": "fullscreen",
+    "start_url": "/",
+    "icons": [{
+        "src": "/img/MDT.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+    }]
+}
