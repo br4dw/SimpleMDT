@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
 :root {
     --background: #121212;
@@ -17,6 +18,7 @@
     --blurple: #5865F2;
     --blurple-dark: #4d57cc;
     --font: 'Nunito', sans-serif;
+    --notepad: 'Roboto Mono', monospace;
 }
 
 * {
@@ -27,6 +29,10 @@
 body {
     background-color: var(--background) !important;
     color: var(--text) !important;
+}
+
+.right {
+    float: right;
 }
 
 .centered {
@@ -100,7 +106,138 @@ body {
     border-radius: 6px;
     transition: 0.4s ease-in-out;
 }
-.close-leo, .close-civ {
+.notepad-modal {
+    display: none;
+    position: absolute;
+    z-index: 2000;
+    /* left: 0;
+    top: 0; */
+    width: 700px;
+    height: 400px;
+    background-color: #1e1e1f;
+    /* border: 1px solid #c0c0c0; */
+    border-radius: 8px;
+}
+.nodepad-modal-content {
+    padding: 20px;
+    border-radius: 6px;
+    transition: 0.4s ease-in-out;
+}
+.close-notepad {
+    color: var(--nqw);
+    float: right;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    font-weight: 100;
+    padding-right: 18px;
+    padding-left: 18px;
+    margin-right: -2px;
+    border-top-right-radius: 8px;
+    margin-top: -1px;
+    overflow: hidden;
+}
+.button-notepad {
+    transition: all 0.3s ease-in-out;
+    color: var(--nqw);
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    font-weight: 100;
+    margin-top: 0px;
+    padding-right: 18px;
+    padding-left: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.large {
+    transition: all 0.3s ease-in-out;
+    font-size: 26px;
+}
+.large:hover {
+    background-color: #c7514f;
+    color: var(--nqw);
+}
+.close-notepad:hover{
+    background-color: #c7514f;
+    color: var(--nqw);
+}
+.button-notepad:hover{
+    background-color: var(--text-secondary);
+}
+.notepad-title {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.notepad-subtitle {
+    height: 30px;
+    font-size: 13px;
+    color: var(--nqw);
+    float: left !important;
+    margin-right: 6px;
+    width: 685px;
+    text-align: left;
+    /* margin-bottom: 0;
+    margin-top: 0; */
+}
+.notepad-subtitle span {
+    margin: 6px;
+    vertical-align: -webkit-baseline-middle;
+}
+.notepad-header {
+    touch-action: none;
+    user-select: none;
+}
+.notepad-content {
+    background-color: #282829;
+    /* border: 1px solid #d7d5da; */
+    overflow-y: scroll;
+    float: left !important;
+    margin: 6px;
+    width: 675px;
+    height: 340px;
+    margin-top: -10px;
+    text-align: left;
+    margin-top: -10px !important;
+    padding: 5px;
+    font-size: 14px;
+    font-family: var(--notepad) !important;
+    color: var(--nqw);
+    border-radius: 3px;
+    margin-bottom: 0;
+}
+.notepad-content:focus {
+    outline: none;
+    border: 1px solid var(--accent) !important;
+    overflow-y: scroll;
+}
+.handle {
+    width: 100%;
+    height: 44px;
+    margin-top: -10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+.notepad-content:active {
+    outline: none;
+    border: 1px solid var(--accent) !important;
+    overflow-y: scroll;
+}
+.notepad-inside {
+    font-size: 14px;
+    font-family: var(--notepad);
+    color: #060000;
+    margin: 0;
+    /* padding: 5px; */
+}
+.close-leo,
+.close-civ,
+.close-char,
+.close-plate,
+.close-10codes {
     color: var(--nqw);
     float: right;
     font-size: 28px;
@@ -108,8 +245,18 @@ body {
     transition: 0.4s ease-in-out;
     cursor: pointer;
 }
-.close:hover,
-.close:focus {
+.close-leo:hover,
+.close-civ:hover,
+.close-char:hover,
+.close-plate:hover,
+.close-notepad:hover,
+.close-10codes:hover,
+.close-leo:hover,
+.close-civ:hover,
+.close-char:hover,
+.close-plate:hover,
+.close-notepad:hover,
+.close-10codes:focus {
     color: var(--rada);
     text-decoration: none;
     cursor: pointer;
@@ -167,6 +314,15 @@ body {
     -moz-user-drag: none;
     -o-user-drag: none;
     pointer-events: none;
+}
+.noselect {
+    -moz-user-select: -moz-none;
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 /* width */
 ::-webkit-scrollbar {
