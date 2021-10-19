@@ -25,12 +25,6 @@
         cursor: pointer;
         margin: 5px;
     }
-    .no-pointer {
-        cursor: default !important;
-    }
-    .login {
-        margin: 2px !important;
-    }
     .blurple {
         background-color: var(--blurple);
     }

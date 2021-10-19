@@ -57,9 +57,6 @@
     .left {
         float: left;
     }
-    .right {
-        float: right;
-    }
     .active-call {
         border: 2px solid var(--text);
         height: 250px;
@@ -78,20 +75,15 @@
         margin: 0;
         color: var(--text-secondary)
     }
-    /* width */
     ::-webkit-scrollbar {
         transition: all 0.2s ease-in-out;
         width: 6px;
         border-radius: 8px;
     }
-
-    /* Handle */
     ::-webkit-scrollbar-thumb {
         background: var(--text-secondary);
         border-radius: 8px;
     }
-
-    /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
         background: var(--text);
     }
