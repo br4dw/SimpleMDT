@@ -29,68 +29,89 @@
         })
     }
     async function checkForm() {
-        let fname = document.getElementById('fname').value;
-        let lname = document.getElementById('lname').value;
-        let dob = document.getElementById('dob').value;
-        if (fname.length < 1 || lname.length < 1 || !dob) {
-            errorToast('All fields must be filled out.');
-            return false;
-        }
-        await createCharacter($session.discordUser.id, {fname, lname, dob});
+        let make = document.getElementById('make').value;
+        let model = document.getElementById('model').value;
+        let plate = document.getElementById('plate').value;
+        let color = document.getElementById('color').value;
+        let stolen = document.getElementById('stolen').checked;
+        // if (make.length < 1 || model.length < 1 || plate.length < 1 || color.length < 1) {
+        //     errorToast('All fields must be filled out.');
+        //     return false;
+        // }
+        await registerVehicle($session.discordUser.id, {make, model, plate, color, stolen});
     }
 
-    async function createCharacter(user, characterData) {
-        let data = await fetch(`${apiUrl}/characters/create?userid=${user}`, {
+    async function registerVehicle(user, vehicleData) {
+        let url = window.location.href.split('/');
+        let uuid = url[url.length-3];
+        let data = await fetch(`${apiUrl}/vehicles/create?uuid=${uuid}&userid=${user}`, {
             method: 'POST',
-            body: JSON.stringify(characterData),
+            body: JSON.stringify(vehicleData),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${$session.userToken}`
             }
         });
-        let res = await data.json();
-        window.location.href = `/mdt/civ/${res.uuid}`;
+        await data.json();
+        window.location.href = `javascript:history.back()`;
     }
     
 </script>
 
 <svelte:head>
-    <title>SimpleMDT - Creating a character</title>
+    <title>SimpleMDT - Registering a vehicle</title>
 </svelte:head>
 
 <SvelteToast />
 
 <div class="centered">
     <div class="section">
-        <p class="title">Character creator.</p>
-        <p class="subtitle">Here you can create your new civilian character!</p>
+        <p class="title">Vehicle registration</p>
+        <p class="subtitle">Here you can register a new vehicle!</p>
     </div>
     <form class="contact-form" id="contact-form" >
         <div class="centered">
-            <label for="fname">First name</label>
+            <label for="make">Make</label>
             <div class="control">
-                <input class="input" type="text" id="fname" name="fname" autocomplete="off">
+                <input class="input" type="text" id="make" name="make" autocomplete="off">
             </div>
         </div>
         <div class="centered">
-            <label for="lname">Last name</label>
+            <label for="model">Model</label>
             <div class="control">
-                <input class="input" type="text" id="lname" name="lname" autocomplete="off">
+                <input class="input" type="text" id="model" name="model" autocomplete="off">
             </div>
         </div>
         <div class="centered">
-            <label for="dob">DOB</label>
+            <label for="plate">Plate</label>
             <div class="control">
-                <input class="input date" type="date" id="dob" name="dob" autocomplete="off">
+                <input class="input" type="text" id="plate" name="plate" autocomplete="off">
+            </div>
+        </div>
+        <div class="centered">
+            <label for="color">Color</label>
+            <div class="control">
+                <input class="input" type="text" id="color" name="color" autocomplete="off">
+            </div>
+        </div>
+        <div class="centered">
+            <label for="stolen">Reported stolen</label>
+            <div class="control">
+                <input class="check" type="checkbox" id="stolen" name="stolen" autocomplete="off">
             </div>
         </div>
         <button class="submit-form" on:click={checkForm}>
-            Create character<i class="icon-r fas fa-chevron-circle-right"></i>
+            Register vehicle<i class="icon-r fas fa-chevron-circle-right"></i>
         </button>
     </form>
 </div>
 
 <style>
+    .check {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+    }
     .contact-form {
         align-items: center;
         background-color: var(--primary-dark);

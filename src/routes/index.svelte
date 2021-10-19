@@ -1,7 +1,7 @@
 <script context="module">
 	export async function preload(page, session) {
         let { discordUser } = session;
-        return { discordUser };
+        return { page, discordUser };
 	}
 </script>
 
@@ -16,9 +16,10 @@
         transition: all 0.3s ease-in-out;
         color: var(--text);
         font-size: 16px;
-        padding: 8px;
+        padding: 5px;
         border-radius: 4px;
         cursor: pointer;
+        margin: 4px;
     }
     .login {
         margin: 2px !important;
@@ -48,8 +49,15 @@
     import fetch from 'node-fetch';
     export let discordUser;
     export let callsign;
+    export let page;
     onMount(() => {
         callsign = window.localStorage.getItem('callsign');
+        if (page?.query.modal && page.query?.type === "civ") {
+            openCivModal();
+        }
+        if (page?.query.modal && page.query?.type === "leo") {
+            openLEOModal();
+        }
     })
     function login() {
         location.href = '/api/auth'
@@ -167,52 +175,53 @@
                     </button>
                 </div>
             {/if}
+            <!-- Callsign pop-up modal -->
+            <div id="md-leo" class="modal bounceIn centered">
+                <div class="modal-content">
+                    <span class="close-leo">&times;</span>
+                    <h2 style="font-weight: 400;">Enter your callsign</h2>
+                    <input type="text" class="callsign" id="callsign"><br />
+                    <button class="login" on:click={submitCallsign}>
+                        <p class="text">
+                            Go
+                            <i class="icon-r fas fa-chevron-right"></i>
+                        </p>
+                    </button>
+                </div>
+            </div>
+        
+            <!-- Civ pop-up modal -->
+            <div id="md-civ" class="modal bounceIn centered">
+                <div class="modal-content">
+                    <span class="close-civ">&times;</span>
+                    <h2 class="centered" style="font-weight: 400;">Existing characters</h2>
+                    {#await getCharacters(discordUser.id)}
+                        <p></p>
+                    {:then characters}
+                        {#if characters.length > 0}
+                            <div class="buttons">
+                                {#each characters as character}
+                                    <button class="button secondary" on:click={(() => goToDash(character.uuid))}>
+                                        <p class="text">
+                                            {character.fname} {character.lname}
+                                            <i class="icon-r fas fa-chevron-right"></i>
+                                        </p>
+                                    </button>
+                                {/each}
+                            </div>
+                        {:else}
+                            <p style="margin-bottom: 30px;">You have no characters</p>
+                        {/if}
+                    {/await}
+                    <br />
+                    <button class="button primary" on:click={createCiv}>
+                        <p class="text">
+                            Create new character
+                            <i class="icon-r fas fa-plus"></i>
+                        </p>
+                    </button>
+                </div>
+            </div>
         {/if}
-        <!-- Callsign pop-up modal -->
-        <div id="md-leo" class="modal bounceIn centered">
-            <div class="modal-content">
-                <span class="close-leo">&times;</span>
-                <h2 style="font-weight: 400;">Enter your callsign</h2>
-                <input type="text" class="callsign" id="callsign"><br />
-                <button class="login" on:click={submitCallsign}>
-                    <p class="text">
-                        Go
-                        <i class="icon-r fas fa-chevron-right"></i>
-                    </p>
-                </button>
-            </div>
-        </div>
-        <!-- Civ pop-up modal -->
-        <div id="md-civ" class="modal bounceIn centered">
-            <div class="modal-content">
-                <span class="close-civ">&times;</span>
-                <h2 class="centered" style="font-weight: 400;">Existing characters</h2>
-                {#await getCharacters(discordUser.id)}
-                    <p></p>
-                {:then characters}
-                    {#if characters.length > 0}
-                        <div class="buttons">
-                            {#each characters as character}
-                                <button class="button secondary" on:click={(() => goToDash(character.uuid))}>
-                                    <p class="text">
-                                        {character.fname} {character.lname}
-                                        <i class="icon-r fas fa-chevron-right"></i>
-                                    </p>
-                                </button>
-                            {/each}
-                        </div>
-                    {:else}
-                        <p>You have no characters</p>
-                    {/if}
-                {/await}
-                <br />
-                <button class="button primary" on:click={createCiv}>
-                    <p class="text">
-                        Create new character
-                        <i class="icon-r fas fa-chevron-right"></i>
-                    </p>
-                </button>
-            </div>
-        </div>
     </div>
 </div>

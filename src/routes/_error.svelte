@@ -34,7 +34,6 @@
 <h1 class="centered spacer-top">{status}</h1>
 
 {#if dev && error.stack}
-	<p class="left">{error.message}</p>
 	<pre class="centered">
 		<ul style="border-radius: 5px; padding: 5px;" class="left">
 			{error.stack}
